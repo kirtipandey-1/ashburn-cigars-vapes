@@ -119,10 +119,41 @@
   .warn{margin-top:.8rem;font-size:.76rem;color:#6f6a7a;max-width:64ch;margin-inline:auto;line-height:1.5}
 
   @media (prefers-reduced-motion: reduce){.marq .track,.smoke{animation:none}}
+
+  /* ── age gate ── */
+  #gate{position:fixed;inset:0;z-index:100;background:#070709;display:flex;align-items:center;justify-content:center;padding:1.4rem;text-align:center}
+  #gate .box{max-width:440px;width:100%}
+  #gate .brand{font-size:1.4rem;display:inline-block;margin-bottom:1.4rem}
+  #gate h2{font-size:clamp(1.9rem,7vw,3rem);margin:.2rem 0 .4rem}
+  #gate p{color:var(--muted);margin:0 0 1.6rem}
+  #gate label{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#6f6a7a;margin-bottom:.5rem}
+  #gate input{width:100%;max-width:280px;background:#111114;border:1.5px solid var(--cyan);color:var(--ink);
+       border-radius:8px;padding:.8rem 1rem;font-size:1rem;font-family:inherit;text-align:center;
+       box-shadow:0 0 16px #19e3ff22;color-scheme:dark}
+  #gate .go{margin-top:1.2rem;width:100%;max-width:280px;border:none;cursor:pointer}
+  #gate .deny{color:var(--pink);margin-top:1.2rem;font-weight:700;display:none}
+  #gate .fine{color:#5d586a;font-size:.74rem;margin-top:1.6rem}
+  html.gated{overflow:hidden}
 </style>
 </head>
 <body>
 <div class="haze"></div>
+
+<!-- ── AGE GATE (loads first) ── -->
+<div id="gate">
+  <div class="box">
+    <span class="brand neon-c" style="font-family:'Monoton',cursive">Ashburn&nbsp;Vapes</span>
+    <h2>Are you <span class="neon">21+?</span></h2>
+    <p>You must be 21 or older to enter. Please enter your date of birth.</p>
+    <form id="gateForm">
+      <label for="dob">Date of birth</label>
+      <input type="date" id="dob" required />
+      <button type="submit" class="btn btn-call go">Enter Site</button>
+      <p class="deny" id="deny">Sorry — you must be 21 or older to enter this site.</p>
+    </form>
+    <p class="fine">Valid government-issued ID is required for all in-store purchases.</p>
+  </div>
+</div>
 
 <div class="concept">Sample website concept · for demonstration only</div>
 
@@ -207,7 +238,7 @@
 <section class="pitch" id="pitch">
   <h2>Like what you <span class="neon">see?</span></h2>
   <p>This is just the concept. The real site — your products, photos, reviews, and store info — is the build. Let's make it official.</p>
-  <a href="#" class="btn btn-call big" style="font-size:1rem">Let's build it</a>
+  <a href="tel:+17039275673" class="btn btn-call big" style="font-size:1rem">Let's build it — (703) 927-5673</a>
 </section>
 
 <footer>
@@ -215,5 +246,29 @@
   <p style="margin:.7rem 0 0">Website design concept · Ashburn, VA</p>
   <p class="warn">Sample design for demonstration only. Not a live store and not affiliated with or endorsed by the business shown. No products are sold on this page.</p>
 </footer>
+
+<script>
+(function(){
+  var html=document.documentElement, gate=document.getElementById('gate');
+  if(sessionStorage.getItem('ageok')==='1'){ gate.style.display='none'; return; }
+  html.classList.add('gated');
+  document.getElementById('gateForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var v=document.getElementById('dob').value, deny=document.getElementById('deny');
+    if(!v){ return; }
+    var dob=new Date(v), now=new Date();
+    var age=now.getFullYear()-dob.getFullYear();
+    var m=now.getMonth()-dob.getMonth();
+    if(m<0 || (m===0 && now.getDate()<dob.getDate())) age--;
+    if(age>=21){
+      sessionStorage.setItem('ageok','1');
+      html.classList.remove('gated');
+      gate.style.display='none';
+    } else {
+      deny.style.display='block';
+    }
+  });
+})();
+</script>
 </body>
 </html>
