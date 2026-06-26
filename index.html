@@ -334,8 +334,6 @@ a{color:inherit;text-decoration:none}
 }
 .ticker span{margin:0 1.4rem}
 @keyframes tickSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.sign-track{animation:signScroll 28s linear infinite;will-change:transform}
-@keyframes signScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* WHAT WE CARRY */
 .carry{
@@ -386,60 +384,65 @@ a{color:inherit;text-decoration:none}
 /* keep item/iname for any legacy references */
 .iname.cg{color:#39ff14}.iname.cp{color:#ff2e7e}.iname.cc{color:#00e5ff}.iname.cy{color:#f5ff00}
 
-/* ── SIGN STRIP — matches ZazaRus exterior banner ── */
-.carry{position:relative;z-index:10;padding:5rem 0}
-.carry-title{
-  font-family:"Rubik Beastly",cursive;
-  font-size:clamp(2.2rem,6vw,4.4rem);
-  color:#f0ede8;margin-bottom:2.2rem;line-height:1;
-  padding:0 1.6rem;
-}
-.carry-title em{font-style:normal;color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,.45)}
+/* ── SIGN PANEL — static, hover to light up ── */
+.carry{position:relative;z-index:10;padding:5rem 1.6rem}
 
 .sign-strip{
-  background:#0a0a0a;
-  border-top:3px solid rgba(255,255,255,.08);
-  border-bottom:3px solid rgba(255,255,255,.08);
-  padding:1.1rem 0;
-  overflow:hidden;
-  white-space:nowrap;
+  background:#060606;
+  border:2.5px solid rgba(255,255,255,.1);
+  border-radius:6px;
+  padding:2rem 1.8rem;
   position:relative;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
+  max-width:1100px;margin:0 auto;
 }
-/* subtle scanline on the strip */
-.sign-strip::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
+/* scanlines */
+.sign-strip::before{
+  content:'';position:absolute;inset:0;border-radius:6px;pointer-events:none;
   background:repeating-linear-gradient(
-    0deg,transparent,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px
+    0deg,transparent,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px
   );
 }
-.sign-track{
-  display:inline-block;
+.sign-row{
+  display:flex;align-items:center;flex-wrap:wrap;
+  gap:.1rem;padding:.3rem 0;
+}
+.sw{
   font-family:"Bangers",cursive;
-  font-size:clamp(2rem,5vw,3.4rem);
-  letter-spacing:.08em;
-  line-height:1;
-  white-space:nowrap;
+  font-size:clamp(1.6rem,4.5vw,3.2rem);
+  letter-spacing:.07em;line-height:1;
+  padding:0 .18em;
+  cursor:default;
+  /* dim by default — sign is "off" */
+  opacity:.3;
+  filter:brightness(.7);
+  transition:opacity .12s ease,filter .12s ease,text-shadow .12s ease;
 }
-.sign-track .sw{display:inline-block;padding:0 .12em}
-.sign-track .sdiv{
-  display:inline-block;padding:0 .35em;
-  color:rgba(255,255,255,.2);font-size:.65em;
-  vertical-align:middle;
+/* light up on hover */
+.sw:hover{
+  opacity:1;filter:brightness(1);
 }
-/* rainbow colors cycling across words — matching sign color order */
-.sw.c1{color:#ff2020;text-shadow:0 0 14px rgba(255,32,32,.5)}
-.sw.c2{color:#ff8c00;text-shadow:0 0 14px rgba(255,140,0,.5)}
-.sw.c3{color:#f5ff00;text-shadow:0 0 14px rgba(245,255,0,.5)}
-.sw.c4{color:#39ff14;text-shadow:0 0 14px rgba(57,255,20,.5)}
-.sw.c5{color:#00e5ff;text-shadow:0 0 14px rgba(0,229,255,.5)}
-.sw.c6{color:#a855f7;text-shadow:0 0 14px rgba(168,85,247,.5)}
-/* neon flicker on each color */
-.sw.c1{animation:flickG 11s 0.8s infinite}
-.sw.c2{animation:flickY 8s 3.2s infinite}
-.sw.c3{animation:flickY 9s 1.1s infinite}
-.sw.c4{animation:flickG 10s 2.5s infinite}
-.sw.c5{animation:flickC 12s 0.3s infinite}
-.sw.c6{animation:flickP 9s 4.1s infinite}
+.sdiv{
+  font-family:"Bangers",cursive;
+  font-size:clamp(1rem,2.5vw,2rem);
+  color:rgba(255,255,255,.12);
+  padding:0 .05em;flex-shrink:0;
+  opacity:.3;
+}
+/* rainbow colors */
+.sw.c1{color:#ff3030}
+.sw.c2{color:#ff8c00}
+.sw.c3{color:#f5ff00}
+.sw.c4{color:#39ff14}
+.sw.c5{color:#00e5ff}
+.sw.c6{color:#d060ff}
+/* hover glow per color */
+.sw.c1:hover{text-shadow:0 0 18px #ff3030,0 0 36px rgba(255,48,48,.5),0 0 64px rgba(255,48,48,.25)}
+.sw.c2:hover{text-shadow:0 0 18px #ff8c00,0 0 36px rgba(255,140,0,.5),0 0 64px rgba(255,140,0,.25)}
+.sw.c3:hover{text-shadow:0 0 18px #f5ff00,0 0 36px rgba(245,255,0,.5),0 0 64px rgba(245,255,0,.25)}
+.sw.c4:hover{text-shadow:0 0 18px #39ff14,0 0 36px rgba(57,255,20,.5),0 0 64px rgba(57,255,20,.25)}
+.sw.c5:hover{text-shadow:0 0 18px #00e5ff,0 0 36px rgba(0,229,255,.5),0 0 64px rgba(0,229,255,.25)}
+.sw.c6:hover{text-shadow:0 0 18px #d060ff,0 0 36px rgba(208,96,255,.5),0 0 64px rgba(208,96,255,.25)}
 
 /* REVIEWS */
 .reviews{
@@ -741,35 +744,22 @@ html.gated{overflow:hidden}
 
 <!-- WHAT WE CARRY -->
 <section class="carry" id="carry">
-  <h2 class="carry-title reveal">What we <em>carry</em></h2>
   <div class="sign-strip">
-    <div class="sign-track">
+    <div class="sign-row">
       <span class="sw c1">TOBACCO</span><span class="sdiv">&middot;</span>
       <span class="sw c2">CIGARS</span><span class="sdiv">&middot;</span>
       <span class="sw c3">VAPES</span><span class="sdiv">&middot;</span>
       <span class="sw c4">HOOKAH</span><span class="sdiv">&middot;</span>
       <span class="sw c5">KRATOM</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">DELTA</span><span class="sdiv">&middot;</span>
-      <span class="sw c1">DISPOSABLES</span><span class="sdiv">&middot;</span>
-      <span class="sw c2">E-JUICE</span><span class="sdiv">&middot;</span>
-      <span class="sw c3">CBD</span><span class="sdiv">&middot;</span>
-      <span class="sw c4">GLASS</span><span class="sdiv">&middot;</span>
-      <span class="sw c5">MODS</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">ACCESSORIES</span>
-      <!-- duplicate for seamless scroll illusion on wide screens -->
-      <span class="sdiv">&middot;</span>
-      <span class="sw c1">TOBACCO</span><span class="sdiv">&middot;</span>
-      <span class="sw c2">CIGARS</span><span class="sdiv">&middot;</span>
-      <span class="sw c3">VAPES</span><span class="sdiv">&middot;</span>
-      <span class="sw c4">HOOKAH</span><span class="sdiv">&middot;</span>
-      <span class="sw c5">KRATOM</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">DELTA</span><span class="sdiv">&middot;</span>
-      <span class="sw c1">DISPOSABLES</span><span class="sdiv">&middot;</span>
-      <span class="sw c2">E-JUICE</span><span class="sdiv">&middot;</span>
-      <span class="sw c3">CBD</span><span class="sdiv">&middot;</span>
-      <span class="sw c4">GLASS</span><span class="sdiv">&middot;</span>
-      <span class="sw c5">MODS</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">ACCESSORIES</span>
+      <span class="sw c6">DELTA</span>
+    </div>
+    <div class="sign-row">
+      <span class="sw c2">DISPOSABLES</span><span class="sdiv">&middot;</span>
+      <span class="sw c3">E-JUICE</span><span class="sdiv">&middot;</span>
+      <span class="sw c4">CBD</span><span class="sdiv">&middot;</span>
+      <span class="sw c5">GLASS</span><span class="sdiv">&middot;</span>
+      <span class="sw c6">MODS</span><span class="sdiv">&middot;</span>
+      <span class="sw c1">ACCESSORIES</span>
     </div>
   </div>
 </section>
