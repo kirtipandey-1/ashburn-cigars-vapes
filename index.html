@@ -9,9 +9,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 body{
-  background:#030108;color:#f0ede8;
+  background:#050110;color:#f0ede8;
   font-family:"DM Sans",system-ui,sans-serif;
   overflow:hidden;display:flex;flex-direction:column;
+}
+/* full-page gradient so hero/sign areas share one consistent dark bg */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 120% 70% at 35% 15%,#130430 0%,#050110 60%);
 }
 a{color:inherit;text-decoration:none}
 
@@ -389,14 +394,28 @@ a{color:inherit;text-decoration:none}
 /* keep item/iname for any legacy references */
 .iname.cg{color:#39ff14}.iname.cp{color:#ff2e7e}.iname.cc{color:#00e5ff}.iname.cy{color:#f5ff00}
 
+/* pill flicker — neon sign randomness */
+@keyframes pillFlick1{
+  0%,90%,100%{opacity:.35}91%{opacity:.08}92%{opacity:.35}93%{opacity:.05}95%{opacity:.35}
+}
+@keyframes pillFlick2{
+  0%,83%,100%{opacity:.35}84%{opacity:.12}85%{opacity:.35}87%{opacity:.04}89%{opacity:.35}
+}
+@keyframes pillFlick3{
+  0%,76%,100%{opacity:.35}77%{opacity:.15}78.5%{opacity:.35}80%{opacity:.06}82%{opacity:.35}
+}
+
 /* ── SIGN PANEL — static, hover to light up ── */
 .carry{position:relative;z-index:10;padding:0.8rem 1.6rem;flex-shrink:0}
 
 .sign-strip{
-  background:transparent;
-  padding:.7rem 1rem;
+  background:rgba(0,0,0,.5);
+  border:2px solid rgba(255,255,255,.07);
+  border-radius:8px;
+  padding:.8rem 1.2rem;
   position:relative;
   max-width:1100px;margin:0 auto;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.4),0 2px 20px rgba(0,0,0,.6);
 }
 .sign-row{
   display:flex;align-items:center;flex-wrap:nowrap;
@@ -414,7 +433,7 @@ a{color:inherit;text-decoration:none}
   white-space:nowrap;
   border-radius:999px;
   border:2.5px solid currentColor;
-  background:#f5f5f0;
+  background:#ede9e3;
   opacity:.35;
   transition:opacity .15s ease,box-shadow .15s ease,text-shadow .15s ease;
 }
@@ -423,6 +442,9 @@ a{color:inherit;text-decoration:none}
   text-shadow:0 0 14px currentColor,0 0 28px currentColor;
   box-shadow:0 0 14px currentColor,inset 0 0 10px rgba(255,255,255,.08);
 }
+.sw.flick1{animation:pillFlick1 8s 0.7s infinite}
+.sw.flick2{animation:pillFlick2 12s 3.1s infinite}
+.sw.flick3{animation:pillFlick3 9.5s 6.4s infinite}
 .sdiv{display:none}
 /* rainbow colors */
 .sw.c1{color:#e8000d}
@@ -685,15 +707,19 @@ html.gated{overflow:hidden}
             values="1 0 0 0 0.04  0 0 0 0 0  0 0 0 0 0.06  0 0 0 2.4 0" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-        <linearGradient id="fillA" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#f5ff00"/>
-          <stop offset="40%" stop-color="#39ff14"/>
-          <stop offset="100%" stop-color="#00c8aa"/>
-        </linearGradient>
-        <linearGradient id="fillB" x1="0%" y1="0%" x2="0%" y2="100%">
+        <linearGradient id="fillA" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#ff2e7e"/>
-          <stop offset="55%" stop-color="#ff6a00"/>
-          <stop offset="100%" stop-color="#ffb020"/>
+          <stop offset="18%" stop-color="#ff8c00"/>
+          <stop offset="36%" stop-color="#f5ff00"/>
+          <stop offset="55%" stop-color="#39ff14"/>
+          <stop offset="73%" stop-color="#00e5ff"/>
+          <stop offset="100%" stop-color="#c040ff"/>
+        </linearGradient>
+        <linearGradient id="fillB" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ff6a00"/>
+          <stop offset="30%" stop-color="#f5ff00"/>
+          <stop offset="60%" stop-color="#39ff14"/>
+          <stop offset="100%" stop-color="#00e5ff"/>
         </linearGradient>
       </defs>
 
@@ -704,11 +730,11 @@ html.gated{overflow:hidden}
         filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
       <text id="ashShadow" x="487" y="125" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="115"
-        fill="none" stroke="#ff2e7e" stroke-width="14" stroke-linejoin="round"
+        fill="none" stroke="#fff" stroke-width="18" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
       <text x="480" y="132" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="115"
-        fill="url(#fillA)" stroke="rgba(0,0,0,0.3)" stroke-width="2"
+        fill="url(#fillA)" stroke="rgba(0,0,0,0.5)" stroke-width="3"
         filter="url(#gGlow)" transform="skewX(-10)">ASHBURN</text>
 
       <!-- CIGARS & VAPES -->
@@ -718,11 +744,11 @@ html.gated{overflow:hidden}
         filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
       <text id="cvShadow" x="487" y="255" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="81"
-        fill="none" stroke="#00e5ff" stroke-width="11" stroke-linejoin="round"
+        fill="none" stroke="#fff" stroke-width="14" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
       <text x="480" y="262" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="81"
-        fill="url(#fillB)" stroke="rgba(0,0,0,0.3)" stroke-width="2"
+        fill="url(#fillB)" stroke="rgba(0,0,0,0.5)" stroke-width="2.5"
         filter="url(#pGlow)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
     </svg>
   </div>
@@ -734,20 +760,20 @@ html.gated{overflow:hidden}
 <section class="carry" id="carry">
   <div class="sign-strip">
     <div class="sign-row">
-      <span class="sw c1">TOBACCO</span><span class="sdiv">&middot;</span>
-      <span class="sw c2">CIGARS</span><span class="sdiv">&middot;</span>
-      <span class="sw c3">VAPES</span><span class="sdiv">&middot;</span>
-      <span class="sw c4">HOOKAH</span><span class="sdiv">&middot;</span>
-      <span class="sw c5">KRATOM</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">DELTA</span>
+      <span class="sw c1">TOBACCO</span>
+      <span class="sw c2 flick2">CIGARS</span>
+      <span class="sw c3">VAPES</span>
+      <span class="sw c4 flick1">HOOKAH</span>
+      <span class="sw c5">KRATOM</span>
+      <span class="sw c6 flick3">DELTA</span>
     </div>
     <div class="sign-row">
-      <span class="sw c2">DISPOSABLES</span><span class="sdiv">&middot;</span>
-      <span class="sw c3">E-JUICE</span><span class="sdiv">&middot;</span>
-      <span class="sw c4">CBD</span><span class="sdiv">&middot;</span>
-      <span class="sw c5">GLASS</span><span class="sdiv">&middot;</span>
-      <span class="sw c6">MODS</span><span class="sdiv">&middot;</span>
-      <span class="sw c1">ACCESSORIES</span>
+      <span class="sw c2">DISPOSABLES</span>
+      <span class="sw c3 flick1">E-JUICE</span>
+      <span class="sw c4">CBD</span>
+      <span class="sw c5 flick3">GLASS</span>
+      <span class="sw c6">MODS</span>
+      <span class="sw c1 flick2">ACCESSORIES</span>
     </div>
   </div>
 </section>
