@@ -73,8 +73,99 @@ a{color:inherit;text-decoration:none}
 .hero-sub{opacity:0;animation:subIn .7s ease-out 1.7s forwards}
 @keyframes subIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-/* Scroll cue: already has cuePulse, just delay it */
+/* Scroll cue */
 .scroll-cue{animation-delay:2.4s}
+
+/* ── CONTINUOUS AMBIENT ── */
+
+/* Graffiti shadow layers drift independently (chromatic aberration feel) */
+#ashShadow{animation:ashDrift 3.8s ease-in-out infinite}
+@keyframes ashDrift{
+  0%,100%{transform:skewX(-10deg) translate(7px,-7px)}
+  40%{transform:skewX(-12deg) translate(14px,-3px)}
+  70%{transform:skewX(-8deg) translate(3px,-12px)}
+}
+#cvShadow{animation:cvDrift 4.4s ease-in-out infinite}
+@keyframes cvDrift{
+  0%,100%{transform:skewX(-7deg) translate(7px,-7px)}
+  35%{transform:skewX(-9deg) translate(2px,-13px)}
+  65%{transform:skewX(-5deg) translate(12px,-4px)}
+}
+
+/* Graffiti SVG: slow breathing scale */
+.graffiti-hero svg{animation:gfxGlitch 11s 2s infinite,grfBreathe 5s ease-in-out infinite}
+@keyframes grfBreathe{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.018)}
+}
+
+/* SVG gradient color cycling */
+#fillA stop:nth-child(1){animation:colorA1 7s linear infinite}
+#fillA stop:nth-child(2){animation:colorA2 7s linear infinite}
+#fillA stop:nth-child(3){animation:colorA3 7s linear infinite}
+@keyframes colorA1{0%{stop-color:#f5ff00}33%{stop-color:#39ff14}66%{stop-color:#00e5ff}100%{stop-color:#f5ff00}}
+@keyframes colorA2{0%{stop-color:#39ff14}33%{stop-color:#00e5ff}66%{stop-color:#f5ff00}100%{stop-color:#39ff14}}
+@keyframes colorA3{0%{stop-color:#00c8aa}33%{stop-color:#f5ff00}66%{stop-color:#39ff14}100%{stop-color:#00c8aa}}
+
+#fillB stop:nth-child(1){animation:colorB1 6s linear infinite}
+#fillB stop:nth-child(2){animation:colorB2 6s linear infinite}
+#fillB stop:nth-child(3){animation:colorB3 6s linear infinite}
+@keyframes colorB1{0%{stop-color:#ff2e7e}33%{stop-color:#f5ff00}66%{stop-color:#ff6a00}100%{stop-color:#ff2e7e}}
+@keyframes colorB2{0%{stop-color:#ff6a00}33%{stop-color:#ff2e7e}66%{stop-color:#ffb020}100%{stop-color:#ff6a00}}
+@keyframes colorB3{0%{stop-color:#ffb020}33%{stop-color:#ff6a00}66%{stop-color:#ff2e7e}100%{stop-color:#ffb020}}
+
+/* Neon flicker on list item names — staggered so they don't all fire together */
+.iname.cg{animation:flickG 9s 0.5s infinite}
+.iname.cp{animation:flickP 8s 2.1s infinite}
+.iname.cc{animation:flickC 11s 1.3s infinite}
+.iname.cy{animation:flickY 7s 3.4s infinite}
+@keyframes flickG{
+  0%,92%,100%{opacity:1;text-shadow:0 0 10px rgba(57,255,20,.28)}
+  93%{opacity:.6;text-shadow:none}
+  94%{opacity:1;text-shadow:0 0 18px rgba(57,255,20,.7)}
+  95%{opacity:.7;text-shadow:none}
+  96%{opacity:1;text-shadow:0 0 10px rgba(57,255,20,.28)}
+}
+@keyframes flickP{
+  0%,90%,100%{opacity:1;text-shadow:0 0 10px rgba(255,46,126,.28)}
+  91%{opacity:.55;text-shadow:none}
+  92%{opacity:1;text-shadow:0 0 20px rgba(255,46,126,.75)}
+  93%{opacity:.65;text-shadow:none}
+  94%{opacity:1;text-shadow:0 0 10px rgba(255,46,126,.28)}
+}
+@keyframes flickC{
+  0%,94%,100%{opacity:1;text-shadow:0 0 10px rgba(0,229,255,.28)}
+  95%{opacity:.6;text-shadow:none}
+  96%{opacity:1;text-shadow:0 0 18px rgba(0,229,255,.7)}
+  97%{opacity:.7;text-shadow:none}
+  98%{opacity:1;text-shadow:0 0 10px rgba(0,229,255,.28)}
+}
+@keyframes flickY{
+  0%,88%,100%{opacity:1;text-shadow:0 0 10px rgba(245,255,0,.28)}
+  89%{opacity:.5;text-shadow:none}
+  90%{opacity:1;text-shadow:0 0 22px rgba(245,255,0,.8)}
+  91%{opacity:.6;text-shadow:none}
+  92%{opacity:1;text-shadow:0 0 10px rgba(245,255,0,.28)}
+}
+
+/* Ticker dot separators pulse */
+.ticker span{display:inline-block;animation:tickPop 4s ease-in-out infinite}
+.ticker span:nth-child(2n){animation-delay:-1.3s}
+.ticker span:nth-child(3n){animation-delay:-2.7s}
+
+/* Carry title: slow glow drift */
+.carry-title em{animation:titleGlow 4s ease-in-out infinite}
+@keyframes titleGlow{
+  0%,100%{text-shadow:0 0 16px rgba(57,255,20,.38)}
+  50%{text-shadow:0 0 32px rgba(57,255,20,.7),0 0 60px rgba(57,255,20,.2)}
+}
+
+/* Reviews title accent pulse */
+.reviews-title em{animation:revGlow 5s ease-in-out infinite}
+@keyframes revGlow{
+  0%,100%{text-shadow:0 0 14px rgba(255,46,126,.33)}
+  50%{text-shadow:0 0 28px rgba(255,46,126,.65),0 0 55px rgba(255,46,126,.2)}
+}
 
 /* NOISE */
 .noise{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.04;
@@ -419,12 +510,12 @@ html.gated{overflow:hidden}
         </linearGradient>
       </defs>
 
-      <!-- ASHBURN — black base, pink shadow offset, green fill -->
+      <!-- ASHBURN -->
       <text x="480" y="132" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="115"
         fill="none" stroke="#000" stroke-width="24" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
-      <text x="487" y="125" text-anchor="middle"
+      <text id="ashShadow" x="487" y="125" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="115"
         fill="none" stroke="#ff2e7e" stroke-width="14" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
@@ -433,12 +524,12 @@ html.gated{overflow:hidden}
         fill="url(#fillA)" stroke="rgba(0,0,0,0.3)" stroke-width="2"
         filter="url(#gGlow)" transform="skewX(-10)">ASHBURN</text>
 
-      <!-- CIGARS & VAPES — black base, cyan shadow, pink-orange fill -->
+      <!-- CIGARS & VAPES -->
       <text x="480" y="262" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="81"
         fill="none" stroke="#000" stroke-width="19" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
-      <text x="487" y="255" text-anchor="middle"
+      <text id="cvShadow" x="487" y="255" text-anchor="middle"
         font-family="'Rubik Beastly',cursive" font-size="81"
         fill="none" stroke="#00e5ff" stroke-width="11" stroke-linejoin="round"
         filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
@@ -531,6 +622,21 @@ html.gated{overflow:hidden}
     if(age>=21){sessionStorage.setItem('ageok','1');html.classList.remove('gated');gate.style.display='none'}
     else{deny.style.display='block'}
   });
+})();
+
+/* LIVING TURBULENCE — continuously morphs the graffiti warp filter */
+(function(){
+  var turb=document.querySelector('#gWarp feTurbulence');
+  if(!turb)return;
+  var t=0;
+  function warp(){
+    t+=0.004;
+    var bfx=(0.015+Math.sin(t)*0.004).toFixed(4);
+    var bfy=(0.020+Math.cos(t*0.7)*0.005).toFixed(4);
+    turb.setAttribute('baseFrequency',bfx+' '+bfy);
+    requestAnimationFrame(warp);
+  }
+  warp();
 })();
 
 /* SCROLL REVEAL */
