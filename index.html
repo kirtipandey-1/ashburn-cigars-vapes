@@ -14,6 +14,68 @@ a{color:inherit;text-decoration:none}
 /* CANVAS — fixed, always present */
 #smoke{position:fixed;inset:0;z-index:5;pointer-events:none}
 
+/* ── ANIMATIONS ── */
+
+/* Graffiti: spray-paint reveal left→right on load */
+.graffiti-hero{
+  clip-path:inset(0 100% 0 0);
+  animation:sprayIn 1.3s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+}
+@keyframes sprayIn{to{clip-path:inset(0 0% 0 0)}}
+
+/* Graffiti: periodic glitch every ~10s */
+.graffiti-hero svg{animation:gfxGlitch 11s 2s infinite}
+@keyframes gfxGlitch{
+  0%,87%,100%{transform:none;filter:none}
+  88%{transform:skewX(-3deg) translateX(4px);filter:hue-rotate(55deg) saturate(2.2)}
+  89%{transform:skewX(2deg) translateX(-5px);filter:hue-rotate(-35deg) saturate(1.5)}
+  90%{transform:none;filter:none}
+  91%{transform:translateX(3px);filter:hue-rotate(90deg) saturate(1.8)}
+  92%{transform:none;filter:none}
+}
+
+/* Orbs: hue-rotate for psychedelic color cycling */
+@keyframes hueO1{to{filter:blur(100px) hue-rotate(360deg)}}
+@keyframes hueO2{to{filter:blur(100px) hue-rotate(-360deg)}}
+@keyframes hueO3{to{filter:blur(100px) hue-rotate(180deg)}}
+
+/* Scroll-reveal base state */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* Stagger via CSS custom property set by JS */
+.reveal{transition-delay:var(--d,0s)}
+
+/* List item: slide in from left */
+.item{opacity:0;transform:translateX(-22px);transition:opacity .45s ease,transform .45s ease,background .2s,color .18s,text-shadow .18s;transition-delay:var(--d,0s)}
+.item.in{opacity:1;transform:none}
+/* override hover rules that were previously on .item */
+.item.in:hover .iname{color:#f5ff00;text-shadow:0 0 14px rgba(245,255,0,.38)}
+
+/* CTA phone: pulsing glow */
+.cta-phone{animation:phonePulse 2.8s ease-in-out infinite}
+@keyframes phonePulse{
+  0%,100%{box-shadow:0 0 18px rgba(57,255,20,.12)}
+  50%{box-shadow:0 0 32px rgba(57,255,20,.45),0 0 60px rgba(57,255,20,.18)}
+}
+
+/* Ticker: subtle scale on each item */
+.ticker span{display:inline-block;animation:tickPop 4s ease-in-out infinite}
+.ticker span:nth-child(2n){animation-delay:-1.3s}
+.ticker span:nth-child(3n){animation-delay:-2.7s}
+@keyframes tickPop{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* Hero badge: flicker in */
+.hero-badge{opacity:0;animation:badgeIn .6s ease-out 1.9s forwards}
+@keyframes badgeIn{to{opacity:1}}
+
+/* Hero sub: fade up after spray */
+.hero-sub{opacity:0;animation:subIn .7s ease-out 1.7s forwards}
+@keyframes subIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* Scroll cue: already has cuePulse, just delay it */
+.scroll-cue{animation-delay:2.4s}
+
 /* NOISE */
 .noise{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.04;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -61,19 +123,19 @@ a{color:inherit;text-decoration:none}
   width:80vw;height:60vw;
   background:radial-gradient(circle,rgba(255,46,126,.18),transparent 65%);
   top:-20%;left:-15%;
-  animation:orbA 20s ease-in-out infinite;
+  animation:orbA 20s ease-in-out infinite,hueO1 7s linear infinite;
 }
 .o2{
   width:60vw;height:60vw;
   background:radial-gradient(circle,rgba(57,255,20,.12),transparent 65%);
   bottom:-15%;right:-10%;
-  animation:orbB 25s ease-in-out infinite;
+  animation:orbB 25s ease-in-out infinite,hueO2 9s linear infinite;
 }
 .o3{
   width:45vw;height:45vw;
   background:radial-gradient(circle,rgba(0,229,255,.1),transparent 65%);
   top:40%;left:38%;
-  animation:orbC 15s ease-in-out infinite;
+  animation:orbC 15s ease-in-out infinite,hueO3 5s linear infinite;
 }
 @keyframes orbA{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(5vw,8vh) scale(1.1)}70%{transform:translate(-4vw,4vh) scale(.93)}}
 @keyframes orbB{0%,100%{transform:translate(0,0)}50%{transform:translate(-6vw,-5vh) scale(1.12)}}
@@ -139,10 +201,8 @@ a{color:inherit;text-decoration:none}
   border-top:1px solid rgba(255,255,255,.07);
   padding:1.4rem 0;
   display:flex;align-items:baseline;gap:1.5rem;
-  transition:.18s;
 }
 .item:last-child{border-bottom:1px solid rgba(255,255,255,.07)}
-.item:hover .iname{color:#f5ff00;text-shadow:0 0 14px rgba(245,255,0,.38)}
 .inum{
   font-family:"Permanent Marker",cursive;font-size:.78rem;
   color:rgba(240,237,232,.22);min-width:2.2rem;text-align:right;flex-shrink:0;
@@ -403,7 +463,7 @@ html.gated{overflow:hidden}
 
 <!-- WHAT WE CARRY -->
 <section class="carry" id="carry">
-  <h2 class="carry-title">What we <em>carry</em></h2>
+  <h2 class="carry-title reveal">What we <em>carry</em></h2>
   <div class="item-list">
     <div class="item"><span class="inum">01</span><span class="iname cg">Vapes &amp; Mods</span><span class="isub">your products here</span></div>
     <div class="item"><span class="inum">02</span><span class="iname cp">Disposables</span><span class="isub">your products here</span></div>
@@ -419,13 +479,13 @@ html.gated{overflow:hidden}
 <!-- REVIEWS -->
 <section class="reviews" id="reviews">
   <div class="reviews-inner">
-    <h2 class="reviews-title">Straight from <em>the people</em></h2>
+    <h2 class="reviews-title reveal">Straight from <em>the people</em></h2>
     <div class="rev-grid">
-      <div class="rev">
+      <div class="rev reveal" style="--d:.1s">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>Your 5-star review here</p>
       </div>
-      <div class="rev">
+      <div class="rev reveal" style="--d:.22s">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <p>Your 5-star review here</p>
       </div>
@@ -471,6 +531,30 @@ html.gated{overflow:hidden}
     if(age>=21){sessionStorage.setItem('ageok','1');html.classList.remove('gated');gate.style.display='none'}
     else{deny.style.display='block'}
   });
+})();
+
+/* SCROLL REVEAL */
+(function(){
+  /* generic reveal elements */
+  var revealIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target)}
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){revealIO.observe(el)});
+
+  /* list items — staggered */
+  var itemIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var idx=Array.from(e.target.parentNode.children).indexOf(e.target);
+        e.target.style.setProperty('--d',(idx*0.07)+'s');
+        e.target.classList.add('in');
+        itemIO.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.item').forEach(function(el){itemIO.observe(el)});
 })();
 
 /* CANVAS SMOKE PARTICLES */
