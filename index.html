@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ashburn Cigars &amp; Vapes</title>
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Beastly&family=Permanent+Marker&family=Bangers&family=DM+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Beastly&family=Permanent+Marker&family=Fredoka:wght@700&family=DM+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -393,55 +393,41 @@ a{color:inherit;text-decoration:none}
 .carry{position:relative;z-index:10;padding:0.8rem 1.6rem;flex-shrink:0}
 
 .sign-strip{
-  background:#060606;
-  border:2.5px solid rgba(255,255,255,.1);
-  border-radius:6px;
-  padding:1rem 1.4rem;
+  background:#f5f5f0;
+  border-radius:5px;
+  padding:.9rem 1.4rem;
   position:relative;
-  box-shadow:inset 0 0 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
   max-width:1100px;margin:0 auto;
-}
-.sign-strip::before{
-  content:'';position:absolute;inset:0;border-radius:6px;pointer-events:none;
-  background:repeating-linear-gradient(
-    0deg,transparent,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px
-  );
+  box-shadow:0 4px 24px rgba(0,0,0,.5),0 0 0 3px rgba(255,255,255,.08);
 }
 .sign-row{
-  display:flex;align-items:center;flex-wrap:wrap;
-  gap:.1rem;padding:.18rem 0;
+  display:flex;align-items:center;flex-wrap:nowrap;
+  gap:0;padding:.1rem 0;
+  line-height:1;
 }
 .sw{
-  font-family:"Bangers",cursive;
-  font-size:clamp(1.1rem,3vw,2.2rem);
-  letter-spacing:.06em;line-height:1;
-  padding:0 .12em;
+  font-family:"Fredoka",sans-serif;
+  font-weight:700;
+  font-size:clamp(1rem,2.4vw,2.1rem);
+  letter-spacing:.01em;line-height:1;
+  padding:0 .1em;
   cursor:default;
-  opacity:.3;filter:brightness(.7);
-  transition:opacity .12s ease,filter .12s ease,text-shadow .12s ease;
+  white-space:nowrap;
 }
-.sw:hover{opacity:1;filter:brightness(1);}
 .sdiv{
-  font-family:"Bangers",cursive;
+  font-family:"Fredoka",sans-serif;
+  font-weight:700;
   font-size:clamp(1rem,2.5vw,2rem);
-  color:rgba(255,255,255,.12);
+  color:#999;
   padding:0 .05em;flex-shrink:0;
-  opacity:.3;
 }
-/* rainbow colors */
-.sw.c1{color:#ff3030}
-.sw.c2{color:#ff8c00}
-.sw.c3{color:#f5ff00}
-.sw.c4{color:#39ff14}
-.sw.c5{color:#00e5ff}
-.sw.c6{color:#d060ff}
-/* hover glow per color */
-.sw.c1:hover{text-shadow:0 0 18px #ff3030,0 0 36px rgba(255,48,48,.5),0 0 64px rgba(255,48,48,.25)}
-.sw.c2:hover{text-shadow:0 0 18px #ff8c00,0 0 36px rgba(255,140,0,.5),0 0 64px rgba(255,140,0,.25)}
-.sw.c3:hover{text-shadow:0 0 18px #f5ff00,0 0 36px rgba(245,255,0,.5),0 0 64px rgba(245,255,0,.25)}
-.sw.c4:hover{text-shadow:0 0 18px #39ff14,0 0 36px rgba(57,255,20,.5),0 0 64px rgba(57,255,20,.25)}
-.sw.c5:hover{text-shadow:0 0 18px #00e5ff,0 0 36px rgba(0,229,255,.5),0 0 64px rgba(0,229,255,.25)}
-.sw.c6:hover{text-shadow:0 0 18px #d060ff,0 0 36px rgba(208,96,255,.5),0 0 64px rgba(208,96,255,.25)}
+/* solid rainbow — always fully visible, matching sign color order */
+.sw.c1{color:#e8000d}
+.sw.c2{color:#f97316}
+.sw.c3{color:#d4a000}
+.sw.c4{color:#16a34a}
+.sw.c5{color:#0284c7}
+.sw.c6{color:#9333ea}
 
 /* REVIEWS */
 .reviews{
@@ -738,7 +724,7 @@ html.gated{overflow:hidden}
     </svg>
   </div>
 
-  <p class="hero-sub">A sample of the online presence we'd build for Ashburn Cigars &amp; Vapes. Your brand, your products, your customers.</p>
+
 </section>
 
 <!-- WHAT WE CARRY -->
