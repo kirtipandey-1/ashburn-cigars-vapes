@@ -1,273 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<!-- ════════════════════════════════════════════════════════════════════
-     WEBSITE CONCEPT · Ashburn Cigars & Vapes
-     This is a SAMPLE design only. No real reviews, hours, prices, stats,
-     or claims about the business appear here — every specific detail is a
-     clearly-marked placeholder ("your content here"). The finished build is
-     where the client's real content gets added.
-════════════════════════════════════════════════════════════════════════ -->
-
-<title>Ashburn Cigars &amp; Vapes — Website Concept</title>
-<meta name="description" content="A sample website design concept for Ashburn Cigars & Vapes." />
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Monoton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ashburn Cigars &amp; Vapes</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Beastly&family=Permanent+Marker&family=DM+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
-  :root{
-    --bg:#0b0b0d; --panel:#141417; --panel2:#0f0f12;
-    --pink:#ff2e7e; --cyan:#19e3ff; --green:#39ff14; --amber:#ffb020;
-    --ink:#f2f0ee; --muted:#9b97a3; --line:#ffffff14;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden}
-  a{color:inherit}
-  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .haze{position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:
-      radial-gradient(50vw 40vh at 12% 8%, #ff2e7e22, transparent 70%),
-      radial-gradient(45vw 40vh at 92% 70%, #19e3ff1f, transparent 70%),
-      radial-gradient(40vw 30vh at 60% 110%, #39ff1418, transparent 70%);}
-  main,header,footer,.marq,.visit,.pitch{position:relative;z-index:2}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;height:100%}
+body{background:#060410;color:#f0ede8;font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden;min-height:100%}
+a{color:inherit;text-decoration:none}
 
-  h1,h2,h3,.disp{font-family:"Anton",Impact,sans-serif;font-weight:400;letter-spacing:.5px;line-height:.98;text-transform:uppercase}
-  .neon{font-family:"Monoton",cursive;color:var(--pink);text-shadow:0 0 6px #ff2e7e,0 0 16px #ff2e7eaa,0 0 30px #ff2e7e66}
-  .neon-c{color:var(--cyan);text-shadow:0 0 6px #19e3ff,0 0 16px #19e3ffaa,0 0 30px #19e3ff66}
+/* CANVAS — fixed, always present */
+#smoke{position:fixed;inset:0;z-index:5;pointer-events:none}
 
-  /* placeholder token — signals 'your content here' */
-  .ph{display:inline-block;color:var(--muted);border:1px dashed #ffffff33;border-radius:8px;
-      padding:.45rem .8rem;font-size:.9rem;letter-spacing:.02em}
+/* NOISE */
+.noise{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-  .concept{background:#000;color:var(--amber);text-align:center;font-weight:700;font-size:.76rem;
-       letter-spacing:.18em;padding:.45rem;text-transform:uppercase;border-bottom:1px solid #ffb02033}
+/* FLOATING NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  padding:1.1rem 1.6rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(6,4,16,.72),transparent);
+  pointer-events:none;
+}
+.brand-nav{
+  font-family:"Permanent Marker",cursive;font-size:1.1rem;
+  color:#39ff14;text-shadow:0 0 10px rgba(57,255,20,.5);
+  position:relative;z-index:1;
+}
+.nav-links{display:flex;gap:1rem;align-items:center;position:relative;z-index:1}
+.nav-links a{
+  font-weight:700;font-size:.79rem;letter-spacing:.06em;
+  text-transform:uppercase;color:rgba(240,237,232,.65);transition:color .2s;
+}
+.nav-links a:hover{color:#39ff14}
+.nav-cta{
+  background:#ff2e7e;color:#060410;
+  font-weight:700;font-size:.79rem;letter-spacing:.06em;
+  text-transform:uppercase;padding:.5rem 1rem;border-radius:3px;transition:.2s;
+}
+.nav-cta:hover{box-shadow:0 0 20px rgba(255,46,126,.6)}
 
-  .nav{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);background:rgba(11,11,13,.78);border-bottom:1px solid var(--line)}
-  .nav .in{max-width:1180px;margin:0 auto;padding:.75rem 1.2rem;display:flex;align-items:center;gap:1.2rem}
-  .brand{font-family:"Monoton",cursive;font-size:1.2rem;color:var(--cyan);text-decoration:none;margin-right:auto;
-         text-shadow:0 0 8px #19e3ff88,0 0 20px #19e3ff44;line-height:1}
-  .navlinks{display:flex;gap:1.4rem;align-items:center}
-  .navlinks a{text-decoration:none;font-weight:700;font-size:.84rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
-  .navlinks a:hover{color:var(--cyan)}
-  .btn{display:inline-block;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.82rem;
-       text-decoration:none;padding:.65rem 1.15rem;border-radius:6px;border:1.5px solid;cursor:pointer;transition:.15s}
-  .btn-call{border-color:var(--pink);color:var(--pink);background:#ff2e7e12;box-shadow:0 0 14px #ff2e7e33}
-  .btn-call:hover{background:var(--pink);color:#0b0b0d;box-shadow:0 0 22px #ff2e7e99}
-  .btn-ghost{border-color:var(--cyan);color:var(--cyan);background:#19e3ff10}
-  .btn-ghost:hover{background:var(--cyan);color:#06141a;box-shadow:0 0 22px #19e3ff88}
-  @media(max-width:760px){.navlinks .nl{display:none}}
+/* HERO */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;padding:6rem 1rem 4rem;
+}
 
-  .hero{text-align:center;padding:5.5rem 1.2rem 6rem;position:relative;overflow:hidden}
-  .hero .kick{display:inline-flex;align-items:center;gap:.5rem;font-family:"Monoton",cursive;font-size:.78rem;
-       color:var(--green);text-shadow:0 0 8px #39ff1488;border:1px solid #39ff1444;border-radius:6px;
-       padding:.4rem .8rem;margin-bottom:1.6rem;letter-spacing:.05em}
-  .hero h1{font-size:clamp(3rem,11vw,8rem);margin:.2rem 0}
-  .hero h1 .chrome{background:linear-gradient(180deg,#fff,#cfd2da 38%,#7e8390 52%,#eef0f4 70%,#aeb3bf);
-       -webkit-background-clip:text;background-clip:text;color:transparent;
-       filter:drop-shadow(0 2px 0 #000) drop-shadow(0 0 14px #19e3ff33)}
-  .hero p.sub{max-width:48ch;margin:1.5rem auto 2.2rem;font-size:1.12rem;color:var(--muted)}
-  .hero .cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
-  .hero .big{font-size:.95rem;padding:.9rem 1.6rem}
-  .smoke{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;
-    background:radial-gradient(40% 30% at 50% 60%, #ffffff10, transparent 70%);animation:drift 12s ease-in-out infinite}
-  @keyframes drift{50%{transform:translateY(-18px) scale(1.06)}}
+/* color orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
+.o1{
+  width:80vw;height:60vw;
+  background:radial-gradient(circle,rgba(255,46,126,.18),transparent 65%);
+  top:-20%;left:-15%;
+  animation:orbA 20s ease-in-out infinite;
+}
+.o2{
+  width:60vw;height:60vw;
+  background:radial-gradient(circle,rgba(57,255,20,.12),transparent 65%);
+  bottom:-15%;right:-10%;
+  animation:orbB 25s ease-in-out infinite;
+}
+.o3{
+  width:45vw;height:45vw;
+  background:radial-gradient(circle,rgba(0,229,255,.1),transparent 65%);
+  top:40%;left:38%;
+  animation:orbC 15s ease-in-out infinite;
+}
+@keyframes orbA{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(5vw,8vh) scale(1.1)}70%{transform:translate(-4vw,4vh) scale(.93)}}
+@keyframes orbB{0%,100%{transform:translate(0,0)}50%{transform:translate(-6vw,-5vh) scale(1.12)}}
+@keyframes orbC{0%,100%{transform:translate(0,0)}50%{transform:translate(4vw,-7vh) scale(1.15)}}
 
-  .marq{background:#000;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
-  .marq .track{display:inline-block;padding:.6rem 0;font-family:"Anton",sans-serif;letter-spacing:.12em;
-       font-size:1.05rem;color:var(--green);text-shadow:0 0 8px #39ff1466;animation:slide 22s linear infinite}
-  .marq span{margin:0 1.4rem}
-  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-badge{
+  font-family:"Permanent Marker",cursive;font-size:.88rem;
+  color:#f5ff00;border:1px solid rgba(245,255,0,.28);
+  padding:.35rem .9rem;border-radius:3px;margin-bottom:1.8rem;
+  text-shadow:0 0 10px rgba(245,255,0,.44);
+  position:relative;z-index:10;display:inline-block;
+}
 
-  section.band{max-width:1180px;margin:0 auto;padding:4.5rem 1.2rem}
-  .head{margin-bottom:2.4rem}
-  .head h2{font-size:clamp(2rem,5.5vw,3.6rem)}
-  .head p{color:var(--muted);max-width:56ch;margin:.7rem 0 0}
+.graffiti-hero{width:100%;max-width:980px;position:relative;z-index:10}
+.graffiti-hero svg{width:100%;height:auto;display:block}
 
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .cat{background:var(--panel);padding:1.7rem 1.4rem;transition:.18s}
-  .cat:hover{background:#191920}
-  .cat .ic{width:40px;height:40px;margin-bottom:1rem;color:var(--cyan)}
-  .cat:nth-child(2n) .ic{color:var(--pink)}
-  .cat h3{font-family:"Anton",sans-serif;font-weight:400;font-size:1.2rem;letter-spacing:.4px;margin:0 0 .4rem;text-transform:uppercase}
-  .cat p{margin:0;color:var(--muted);font-size:.9rem}
+.hero-sub{
+  max-width:44ch;text-align:center;
+  margin:2rem auto 0;font-size:1.02rem;
+  color:rgba(240,237,232,.48);line-height:1.8;
+  position:relative;z-index:10;
+}
 
-  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
-  @media(max-width:900px){.quotes{grid-template-columns:1fr}}
-  .q{background:var(--panel);border:1px dashed #ffffff2e;border-radius:12px;padding:1.7rem;text-align:center}
-  .q .st{color:#5a5663;letter-spacing:3px;margin-bottom:.7rem;font-size:1.1rem}
-  .q p{margin:0;color:var(--muted)}
+.scroll-cue{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  font-family:"Permanent Marker",cursive;font-size:.76rem;
+  color:rgba(240,237,232,.28);letter-spacing:.12em;text-transform:uppercase;
+  z-index:10;animation:cuePulse 2.5s ease-in-out infinite;
+}
+@keyframes cuePulse{0%,100%{opacity:.28;transform:translateX(-50%) translateY(0)}50%{opacity:.55;transform:translateX(-50%) translateY(5px)}}
 
-  .visit{background:linear-gradient(180deg,#0b0b0d,#100a12)}
-  .visit .band{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
-  @media(max-width:820px){.visit .band{grid-template-columns:1fr}}
-  .visit .row{margin:.7rem 0}
-  .visit .lbl{display:block;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#6f6a7a;margin-bottom:.35rem}
+/* TICKER */
+.ticker{
+  position:relative;z-index:10;
+  background:#000;overflow:hidden;white-space:nowrap;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.ticker .track{
+  display:inline-block;padding:.62rem 0;
+  font-family:"Permanent Marker",cursive;font-size:1rem;
+  letter-spacing:.08em;color:#39ff14;
+  text-shadow:0 0 8px rgba(57,255,20,.38);
+  animation:tickSlide 22s linear infinite;
+}
+.ticker span{margin:0 1.4rem}
+@keyframes tickSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  .pitch{background:radial-gradient(800px 300px at 50% 0%, #1a0a16, transparent), #000;text-align:center;padding:5rem 1.2rem;border-top:1px solid var(--line)}
-  .pitch h2{font-size:clamp(2rem,6vw,3.4rem)}
-  .pitch p{color:var(--muted);max-width:46ch;margin:1rem auto 2rem;font-size:1.1rem}
+/* WHAT WE CARRY */
+.carry{
+  position:relative;z-index:10;
+  padding:6rem 1.6rem;max-width:1060px;margin:0 auto;
+}
+.carry-title{
+  font-family:"Rubik Beastly",cursive;
+  font-size:clamp(2.4rem,7vw,5rem);
+  color:#f0ede8;margin-bottom:3rem;line-height:1;
+}
+.carry-title em{font-style:normal;color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,.38)}
 
-  footer{background:#000;border-top:1px solid var(--line);text-align:center;padding:2.4rem 1.2rem;color:var(--muted)}
-  .warn{margin-top:.8rem;font-size:.76rem;color:#6f6a7a;max-width:64ch;margin-inline:auto;line-height:1.5}
+.item-list{display:flex;flex-direction:column}
+.item{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:1.4rem 0;
+  display:flex;align-items:baseline;gap:1.5rem;
+  transition:.18s;
+}
+.item:last-child{border-bottom:1px solid rgba(255,255,255,.07)}
+.item:hover .iname{color:#f5ff00;text-shadow:0 0 14px rgba(245,255,0,.38)}
+.inum{
+  font-family:"Permanent Marker",cursive;font-size:.78rem;
+  color:rgba(240,237,232,.22);min-width:2.2rem;text-align:right;flex-shrink:0;
+}
+.iname{
+  font-family:"Rubik Beastly",cursive;
+  font-size:clamp(1.55rem,4vw,2.8rem);
+  line-height:1;flex:1;transition:color .18s,text-shadow .18s;
+}
+.iname.cg{color:#39ff14;text-shadow:0 0 10px rgba(57,255,20,.28)}
+.iname.cp{color:#ff2e7e;text-shadow:0 0 10px rgba(255,46,126,.28)}
+.iname.cc{color:#00e5ff;text-shadow:0 0 10px rgba(0,229,255,.28)}
+.iname.cy{color:#f5ff00;text-shadow:0 0 10px rgba(245,255,0,.28)}
+.isub{font-size:.82rem;color:rgba(240,237,232,.26);font-style:italic;min-width:130px;text-align:right;flex-shrink:0}
+@media(max-width:600px){.isub{display:none}}
 
-  @media (prefers-reduced-motion: reduce){.marq .track,.smoke{animation:none}}
+/* REVIEWS */
+.reviews{
+  position:relative;z-index:10;
+  background:#000;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:5.5rem 1.6rem;
+}
+.reviews-inner{max-width:1060px;margin:0 auto}
+.reviews-title{
+  font-family:"Rubik Beastly",cursive;
+  font-size:clamp(2rem,5vw,3.6rem);
+  margin-bottom:3rem;line-height:1;
+}
+.reviews-title em{font-style:normal;color:#ff2e7e;text-shadow:0 0 14px rgba(255,46,126,.33)}
 
-  /* ── age gate ── */
-  #gate{position:fixed;inset:0;z-index:100;background:#070709;display:flex;align-items:center;justify-content:center;padding:1.4rem;text-align:center}
-  #gate .box{max-width:440px;width:100%}
-  #gate .brand{font-size:1.4rem;display:inline-block;margin-bottom:1.4rem}
-  #gate h2{font-size:clamp(1.9rem,7vw,3rem);margin:.2rem 0 .4rem}
-  #gate p{color:var(--muted);margin:0 0 1.6rem}
-  #gate label{display:block;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:#6f6a7a;margin-bottom:.5rem}
-  #gate input{width:100%;max-width:280px;background:#111114;border:1.5px solid var(--cyan);color:var(--ink);
-       border-radius:8px;padding:.8rem 1rem;font-size:1rem;font-family:inherit;text-align:center;
-       box-shadow:0 0 16px #19e3ff22;color-scheme:dark}
-  #gate .go{margin-top:1.2rem;width:100%;max-width:280px;border:none;cursor:pointer}
-  #gate .deny{color:var(--pink);margin-top:1.2rem;font-weight:700;display:none}
-  #gate .fine{color:#5d586a;font-size:.74rem;margin-top:1.6rem}
-  html.gated{overflow:hidden}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+@media(max-width:680px){.rev-grid{grid-template-columns:1fr}}
+.rev{border:1px solid rgba(255,255,255,.08);padding:2rem;border-radius:5px}
+.rev .stars{
+  color:#f5ff00;text-shadow:0 0 6px rgba(245,255,0,.38);
+  letter-spacing:3px;font-size:.88rem;margin-bottom:1rem;
+}
+.rev p{
+  color:rgba(240,237,232,.35);font-style:italic;font-size:.9rem;
+  border:1px dashed rgba(255,255,255,.11);
+  padding:.4rem .7rem;border-radius:4px;display:inline-block;
+}
+
+/* VISIT / CTA */
+.info-cta{
+  position:relative;z-index:10;
+  padding:5.5rem 1.6rem;max-width:1060px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+}
+@media(max-width:700px){.info-cta{grid-template-columns:1fr;gap:2.5rem}}
+
+.info-block .row{margin-bottom:1.1rem}
+.info-block .lbl{
+  display:block;font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(240,237,232,.28);margin-bottom:.3rem;
+}
+.info-block .val{
+  font-family:"Permanent Marker",cursive;font-size:1.15rem;
+  color:#f0ede8;display:block;
+}
+.info-note{font-size:.78rem;color:rgba(240,237,232,.22);margin-top:1.4rem;line-height:1.65}
+
+.cta-block h2{
+  font-family:"Rubik Beastly",cursive;
+  font-size:clamp(1.9rem,5vw,3.4rem);
+  line-height:1.05;margin-bottom:1.5rem;
+}
+.cta-block h2 em{font-style:normal;color:#ff2e7e;text-shadow:0 0 14px rgba(255,46,126,.38)}
+.cta-phone{
+  font-family:"Rubik Beastly",cursive;
+  font-size:clamp(1.3rem,3.5vw,2.1rem);
+  color:#39ff14;text-shadow:0 0 16px rgba(57,255,20,.45);
+  border:2px solid #39ff14;
+  padding:.7rem 1.4rem;border-radius:4px;
+  transition:.2s;display:inline-block;
+  box-shadow:0 0 18px rgba(57,255,20,.12);
+}
+.cta-phone:hover{background:#39ff14;color:#060410;box-shadow:0 0 32px rgba(57,255,20,.5)}
+
+/* CONCEPT BANNER — bottom so it doesn't start the page */
+.concept{
+  position:fixed;bottom:0;left:0;right:0;z-index:90;
+  background:#000;color:#ffb020;text-align:center;
+  font-weight:700;font-size:.7rem;letter-spacing:.16em;
+  padding:.32rem;text-transform:uppercase;
+  border-top:1px solid rgba(255,176,32,.18);
+}
+
+/* FOOTER */
+footer{
+  position:relative;z-index:10;background:#000;
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:2rem 1.6rem 3rem;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.foot-brand{
+  font-family:"Permanent Marker",cursive;font-size:1rem;
+  color:#39ff14;text-shadow:0 0 8px rgba(57,255,20,.32);
+}
+.foot-note{
+  font-size:.7rem;color:rgba(240,237,232,.2);
+  max-width:55ch;line-height:1.55;
+}
+
+/* AGE GATE */
+#gate{
+  position:fixed;inset:0;z-index:200;background:#04030c;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;text-align:center;
+}
+#gate .box{max-width:400px;width:100%}
+.gate-logo{
+  font-family:"Permanent Marker",cursive;font-size:1.6rem;
+  color:#39ff14;text-shadow:0 0 14px rgba(57,255,20,.5);
+  display:block;margin-bottom:1.6rem;
+}
+#gate h2{font-size:clamp(1.7rem,7vw,2.7rem);font-weight:700;margin:0 0 .5rem}
+#gate h2 span{color:#ff2e7e;text-shadow:0 0 10px rgba(255,46,126,.44)}
+.gate-sub{color:rgba(240,237,232,.48);margin:0 0 1.8rem;line-height:1.65}
+#gate label{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,237,232,.28);margin-bottom:.5rem}
+#gate input{
+  width:100%;max-width:262px;background:#0d0b1c;
+  border:1.5px solid #39ff14;color:#f0ede8;border-radius:5px;
+  padding:.78rem 1rem;font-size:1rem;font-family:inherit;
+  text-align:center;box-shadow:0 0 14px rgba(57,255,20,.1);color-scheme:dark;
+}
+#gate .go{
+  display:block;width:100%;max-width:262px;margin:1.1rem auto 0;
+  background:#ff2e7e;color:#04030c;border:none;border-radius:4px;
+  font-family:"Permanent Marker",cursive;font-size:1.1rem;
+  padding:.85rem 1.5rem;cursor:pointer;transition:.15s;
+  text-transform:uppercase;letter-spacing:.04em;
+}
+#gate .go:hover{box-shadow:0 0 22px rgba(255,46,126,.55)}
+.gate-deny{color:#ff2e7e;margin-top:1rem;font-size:.88rem;font-weight:700;display:none}
+.gate-fine{color:rgba(240,237,232,.18);font-size:.7rem;margin-top:1.8rem;line-height:1.55}
+html.gated{overflow:hidden}
+
+@media(prefers-reduced-motion:reduce){
+  .ticker .track,.o1,.o2,.o3{animation:none}
+  #smoke{display:none}
+}
 </style>
 </head>
 <body>
-<div class="haze"></div>
 
-<!-- ── AGE GATE (loads first) ── -->
+<div class="noise" aria-hidden="true"></div>
+<canvas id="smoke" aria-hidden="true"></canvas>
+
+<!-- AGE GATE -->
 <div id="gate">
   <div class="box">
-    <span class="brand neon-c" style="font-family:'Monoton',cursive">Ashburn&nbsp;Vapes</span>
-    <h2>Are you <span class="neon">21+?</span></h2>
-    <p>You must be 21 or older to enter. Please enter your date of birth.</p>
+    <span class="gate-logo">Ashburn Cigars &amp; Vapes</span>
+    <h2>Are you <span>21+?</span></h2>
+    <p class="gate-sub">Must be 21 or older to enter. Confirm your date of birth.</p>
     <form id="gateForm">
       <label for="dob">Date of birth</label>
-      <input type="date" id="dob" required />
-      <button type="submit" class="btn btn-call go">Enter Site</button>
-      <p class="deny" id="deny">Sorry — you must be 21 or older to enter this site.</p>
+      <input type="date" id="dob" required/>
+      <button type="submit" class="go">Enter Site</button>
+      <p class="gate-deny" id="deny">You must be 21 or older to enter.</p>
     </form>
-    <p class="fine">Valid government-issued ID is required for all in-store purchases.</p>
+    <p class="gate-fine">Valid government-issued ID required for all in-store purchases.</p>
   </div>
 </div>
 
-<div class="concept">Sample website concept · for demonstration only</div>
-
+<!-- FLOATING NAV -->
 <header class="nav">
-  <div class="in">
-    <a href="#" class="brand">Ashburn&nbsp;Vapes</a>
-    <nav class="navlinks">
-      <a href="#shop" class="nl">Shop</a>
-      <a href="#reviews" class="nl">Reviews</a>
-      <a href="#visit" class="nl">Visit</a>
-      <a href="#pitch" class="btn btn-call">Get this site</a>
-    </nav>
-  </div>
+  <a href="#" class="brand-nav">Ashburn Cigars &amp; Vapes</a>
+  <nav class="nav-links">
+    <a href="#carry">Shop</a>
+    <a href="#visit">Visit</a>
+    <a href="#visit" class="nav-cta">Get this site</a>
+  </nav>
 </header>
 
-<main>
+<!-- HERO -->
 <section class="hero">
-  <div class="smoke"></div>
-  <span class="kick">Website concept · Ashburn, VA</span>
-  <h1><span class="chrome">SMOKE.</span> <span class="neon">VAPE.</span><br/><span class="neon-c">CIGARS.</span></h1>
-  <p class="sub">A sample of the online home we'd build for Ashburn Cigars &amp; Vapes — your brand, your products, your reviews, all in one clean, fast site.</p>
-  <div class="cta">
-    <a href="#shop" class="btn btn-ghost big">See the concept ↓</a>
-    <a href="#pitch" class="btn btn-call big">Make it yours</a>
-  </div>
-</section>
-</main>
+  <div class="orb o1" aria-hidden="true"></div>
+  <div class="orb o2" aria-hidden="true"></div>
+  <div class="orb o3" aria-hidden="true"></div>
 
-<div class="marq" aria-hidden="true">
+  <span class="hero-badge">Website concept &middot; Ashburn, VA</span>
+
+  <div class="graffiti-hero" aria-label="Ashburn Cigars and Vapes">
+    <svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+      <defs>
+        <filter id="gWarp" x="-6%" y="-6%" width="112%" height="112%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.015 0.02" numOctaves="3" seed="17" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="gGlow" x="-12%" y="-12%" width="124%" height="124%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix"
+            values="0.16 0 0 0 0  0 1 0 0 0.04  0 0 0 0 0  0 0 0 2.4 0" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="pGlow" x="-12%" y="-12%" width="124%" height="124%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur"/>
+          <feColorMatrix in="blur" type="matrix"
+            values="1 0 0 0 0.04  0 0 0 0 0  0 0 0 0 0.06  0 0 0 2.4 0" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="fillA" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f5ff00"/>
+          <stop offset="40%" stop-color="#39ff14"/>
+          <stop offset="100%" stop-color="#00c8aa"/>
+        </linearGradient>
+        <linearGradient id="fillB" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#ff2e7e"/>
+          <stop offset="55%" stop-color="#ff6a00"/>
+          <stop offset="100%" stop-color="#ffb020"/>
+        </linearGradient>
+      </defs>
+
+      <!-- ASHBURN — black base, pink shadow offset, green fill -->
+      <text x="480" y="132" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="115"
+        fill="none" stroke="#000" stroke-width="24" stroke-linejoin="round"
+        filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
+      <text x="487" y="125" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="115"
+        fill="none" stroke="#ff2e7e" stroke-width="14" stroke-linejoin="round"
+        filter="url(#gWarp)" transform="skewX(-10)">ASHBURN</text>
+      <text x="480" y="132" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="115"
+        fill="url(#fillA)" stroke="rgba(0,0,0,0.3)" stroke-width="2"
+        filter="url(#gGlow)" transform="skewX(-10)">ASHBURN</text>
+
+      <!-- CIGARS & VAPES — black base, cyan shadow, pink-orange fill -->
+      <text x="480" y="262" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="81"
+        fill="none" stroke="#000" stroke-width="19" stroke-linejoin="round"
+        filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
+      <text x="487" y="255" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="81"
+        fill="none" stroke="#00e5ff" stroke-width="11" stroke-linejoin="round"
+        filter="url(#gWarp)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
+      <text x="480" y="262" text-anchor="middle"
+        font-family="'Rubik Beastly',cursive" font-size="81"
+        fill="url(#fillB)" stroke="rgba(0,0,0,0.3)" stroke-width="2"
+        filter="url(#pGlow)" transform="skewX(-7)">CIGARS &amp; VAPES</text>
+    </svg>
+  </div>
+
+  <p class="hero-sub">A sample of the online presence we'd build for Ashburn Cigars &amp; Vapes. Your brand, your products, your customers.</p>
+  <span class="scroll-cue">scroll down</span>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
   <div class="track">
-    <span>DISPOSABLES</span><span>•</span><span>CIGARS</span><span>•</span><span>HOOKAH</span><span>•</span><span>GLASS</span><span>•</span><span>CBD</span><span>•</span><span>E-JUICE</span><span>•</span>
-    <span>DISPOSABLES</span><span>•</span><span>CIGARS</span><span>•</span><span>HOOKAH</span><span>•</span><span>GLASS</span><span>•</span><span>CBD</span><span>•</span><span>E-JUICE</span><span>•</span>
+    <span>DISPOSABLES</span><span>&middot;</span><span>CIGARS</span><span>&middot;</span><span>HOOKAH</span><span>&middot;</span><span>GLASS</span><span>&middot;</span><span>CBD</span><span>&middot;</span><span>E-JUICE</span><span>&middot;</span><span>KRATOM</span><span>&middot;</span><span>MODS</span><span>&middot;</span>
+    <span>DISPOSABLES</span><span>&middot;</span><span>CIGARS</span><span>&middot;</span><span>HOOKAH</span><span>&middot;</span><span>GLASS</span><span>&middot;</span><span>CBD</span><span>&middot;</span><span>E-JUICE</span><span>&middot;</span><span>KRATOM</span><span>&middot;</span><span>MODS</span><span>&middot;</span>
   </div>
 </div>
 
-<main>
-<section class="band" id="shop">
-  <div class="head">
-    <h2>The <span class="neon-c">counter</span></h2>
-    <p>An example layout for your product categories. In the real build, these become your actual lineup — with your photos and descriptions.</p>
-  </div>
-  <div class="grid">
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="18" y="6" width="12" height="30" rx="4"/><path d="M24 36v6"/><path d="M18 14h12"/></svg><h3>Vapes &amp; Mods</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="8" y="20" width="32" height="8" rx="4"/><path d="M36 20v8"/></svg><h3>Disposables</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="6" y="22" width="32" height="6" rx="3"/><path d="M38 22v6"/><path d="M12 18c1-3 4-3 5 0"/></svg><h3>Cigars</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M24 8v14"/><path d="M16 22h16l-3 16H19z"/><path d="M14 38h20"/></svg><h3>Hookah</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="22" cy="30" r="10"/><path d="M22 20V10"/><path d="M30 22l6-6"/></svg><h3>Glass &amp; Gear</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M24 8c-8 9-9 18 0 32 9-14 8-23 0-32z"/><path d="M24 18v18"/></svg><h3>CBD &amp; Kratom</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="12" y="10" width="24" height="28" rx="3"/><path d="M18 18h12M18 24h12M18 30h7"/></svg><h3>E-Juice</h3><p class="ph">Your products here</p></article>
-    <article class="cat"><svg class="ic" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="24" cy="24" r="14"/><path d="M24 16v8l6 4"/></svg><h3>Accessories</h3><p class="ph">Your products here</p></article>
+<!-- WHAT WE CARRY -->
+<section class="carry" id="carry">
+  <h2 class="carry-title">What we <em>carry</em></h2>
+  <div class="item-list">
+    <div class="item"><span class="inum">01</span><span class="iname cg">Vapes &amp; Mods</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">02</span><span class="iname cp">Disposables</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">03</span><span class="iname">Cigars</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">04</span><span class="iname cc">Hookah</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">05</span><span class="iname cy">Glass &amp; Gear</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">06</span><span class="iname cp">CBD &amp; Kratom</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">07</span><span class="iname cg">E-Juice</span><span class="isub">your products here</span></div>
+    <div class="item"><span class="inum">08</span><span class="iname">Accessories</span><span class="isub">your products here</span></div>
   </div>
 </section>
-</main>
 
-<main>
-<section class="band" id="reviews">
-  <div class="head"><h2>Your reputation, <span class="neon">front &amp; center</span></h2><p>This is where your real Google reviews would be featured — automatically pulled in and shown off to every visitor.</p></div>
-  <div class="quotes">
-    <figure class="q"><div class="st">☆☆☆☆☆</div><p class="ph">Your 5-star review here</p></figure>
-    <figure class="q"><div class="st">☆☆☆☆☆</div><p class="ph">Your 5-star review here</p></figure>
-    <figure class="q"><div class="st">☆☆☆☆☆</div><p class="ph">Your 5-star review here</p></figure>
-  </div>
-</section>
-</main>
-
-<section class="visit" id="visit">
-  <div class="band">
-    <div>
-      <div class="head" style="margin-bottom:1rem"><h2>Find <span class="neon-c">us</span></h2></div>
-      <div class="row"><span class="lbl">Address</span><span class="ph">Your store address</span></div>
-      <div class="row"><span class="lbl">Phone</span><span class="ph">Your phone number</span></div>
-      <div class="row"><span class="lbl">Hours</span><span class="ph">Your hours</span></div>
-      <p style="color:#6f6a7a;font-size:.82rem;margin-top:1.2rem">Your real details, a live map, and click-to-call go here in the finished site.</p>
-    </div>
-    <div style="display:flex;flex-direction:column;justify-content:center;gap:1.1rem">
-      <h3 style="font-size:1.8rem;color:var(--ink)">Built to bring<br/>people in the door</h3>
-      <p style="color:var(--muted);margin:0">Mobile-friendly, fast, and easy to find on Google — so customers can reach you, get directions, and see what's in stock.</p>
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="reviews-inner">
+    <h2 class="reviews-title">Straight from <em>the people</em></h2>
+    <div class="rev-grid">
+      <div class="rev">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>Your 5-star review here</p>
+      </div>
+      <div class="rev">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>Your 5-star review here</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="pitch" id="pitch">
-  <h2>Like what you <span class="neon">see?</span></h2>
-  <p>This is just the concept. The real site — your products, photos, reviews, and store info — is the build. Let's make it official.</p>
-  <a href="tel:+17039275673" class="btn btn-call big" style="font-size:1rem">Let's build it — (703) 927-5673</a>
-</section>
+<!-- VISIT / CTA -->
+<div class="info-cta" id="visit">
+  <div class="info-block">
+    <div class="row"><span class="lbl">Address</span><span class="val">Your store address</span></div>
+    <div class="row"><span class="lbl">Phone</span><span class="val">Your phone number</span></div>
+    <div class="row"><span class="lbl">Hours</span><span class="val">Your hours</span></div>
+    <p class="info-note">Your real details, a live map, and click-to-call go here in the finished site.</p>
+  </div>
+  <div class="cta-block">
+    <h2>Like what you <em>see?</em></h2>
+    <a href="tel:+17039275673" class="cta-phone">(703) 927-5673</a>
+  </div>
+</div>
+
+<div class="concept">Sample website concept &middot; for demonstration only</div>
 
 <footer>
-  <a href="#" class="brand" style="font-size:1.1rem">Ashburn&nbsp;Vapes</a>
-  <p style="margin:.7rem 0 0">Website design concept · Ashburn, VA</p>
-  <p class="warn">Sample design for demonstration only. Not a live store and not affiliated with or endorsed by the business shown. No products are sold on this page.</p>
+  <span class="foot-brand">Ashburn Cigars &amp; Vapes</span>
+  <span class="foot-note">Sample design for demonstration only. Not a live store and not affiliated with or endorsed by the business shown. No products are sold on this page.</span>
 </footer>
 
 <script>
+/* AGE GATE */
 (function(){
-  var html=document.documentElement, gate=document.getElementById('gate');
-  if(sessionStorage.getItem('ageok')==='1'){ gate.style.display='none'; return; }
+  var html=document.documentElement,gate=document.getElementById('gate');
+  if(sessionStorage.getItem('ageok')==='1'){gate.style.display='none';return}
   html.classList.add('gated');
-  document.getElementById('gateForm').addEventListener('submit', function(e){
+  document.getElementById('gateForm').addEventListener('submit',function(e){
     e.preventDefault();
-    var v=document.getElementById('dob').value, deny=document.getElementById('deny');
-    if(!v){ return; }
-    var dob=new Date(v), now=new Date();
+    var v=document.getElementById('dob').value,deny=document.getElementById('deny');
+    if(!v)return;
+    var dob=new Date(v),now=new Date();
     var age=now.getFullYear()-dob.getFullYear();
     var m=now.getMonth()-dob.getMonth();
-    if(m<0 || (m===0 && now.getDate()<dob.getDate())) age--;
-    if(age>=21){
-      sessionStorage.setItem('ageok','1');
-      html.classList.remove('gated');
-      gate.style.display='none';
-    } else {
-      deny.style.display='block';
-    }
+    if(m<0||(m===0&&now.getDate()<dob.getDate()))age--;
+    if(age>=21){sessionStorage.setItem('ageok','1');html.classList.remove('gated');gate.style.display='none'}
+    else{deny.style.display='block'}
   });
+})();
+
+/* CANVAS SMOKE PARTICLES */
+(function(){
+  var c=document.getElementById('smoke');
+  var ctx=c.getContext('2d');
+  var W,H;
+  var start=Date.now();
+  var THIN_AFTER=3200; /* ms — smoke thins from dense to ambient */
+
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  window.addEventListener('resize',resize);
+  resize();
+
+  function P(init){
+    this.x=Math.random()*W;
+    this.y=init?Math.random()*H:H+Math.random()*60;
+    this.r=Math.random()*90+35;
+    this.vy=-(Math.random()*.45+.12);
+    this.vx=(Math.random()-.5)*.22;
+    this.life=init?Math.floor(Math.random()*260):0;
+    this.maxL=Math.floor(Math.random()*240+170);
+    this.peak=Math.random()*.32+.05;
+    this.alpha=0;
+  }
+  P.prototype.tick=function(){
+    this.life++;this.y+=this.vy;this.x+=this.vx;this.r+=.22;
+    var t=this.life/this.maxL;
+    var r=t<.25?t/.25:t>.7?(1-t)/.3:1;
+    this.alpha=this.peak*r;
+    if(this.life>=this.maxL)return true;
+  };
+  P.prototype.draw=function(){
+    var g=ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.r);
+    g.addColorStop(0,'rgba(208,205,201,'+this.alpha.toFixed(3)+')');
+    g.addColorStop(1,'rgba(185,182,178,0)');
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=g;ctx.fill();
+  };
+
+  var pool=[];
+  for(var i=0;i<52;i++)pool.push(new P(true));
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    var thick=Date.now()-start<THIN_AFTER;
+    var cap=thick?65:20;
+    if(pool.length<cap)pool.push(new P(false));
+    pool=pool.filter(function(p){var done=p.tick();if(!done)p.draw();return !done});
+    requestAnimationFrame(frame);
+  }
+  frame();
 })();
 </script>
 </body>
