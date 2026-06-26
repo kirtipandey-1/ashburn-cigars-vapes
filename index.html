@@ -8,7 +8,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;height:100%}
-body{background:#060410;color:#f0ede8;font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden;min-height:100%}
+body{background:#030108;color:#f0ede8;font-family:"DM Sans",system-ui,sans-serif;overflow-x:hidden;min-height:100%}
 a{color:inherit;text-decoration:none}
 
 /* CANVAS — fixed, always present */
@@ -166,6 +166,57 @@ a{color:inherit;text-decoration:none}
   0%,100%{text-shadow:0 0 14px rgba(255,46,126,.33)}
   50%{text-shadow:0 0 28px rgba(255,46,126,.65),0 0 55px rgba(255,46,126,.2)}
 }
+
+/* PAINT DRIPS */
+.drips{position:absolute;top:0;left:0;right:0;z-index:8;pointer-events:none}
+.drip{
+  position:absolute;top:0;left:var(--x);
+  width:var(--w,9px);
+  background:linear-gradient(to bottom,var(--c) 0%,var(--c) 80%,transparent 100%);
+  border-radius:0 0 60% 60%;
+  box-shadow:0 0 6px var(--c),0 0 12px var(--c);
+  height:0;opacity:0;
+  animation:dripFall var(--dur,5s) var(--d,0s) ease-in infinite;
+}
+@keyframes dripFall{
+  0%{height:0;opacity:0}
+  4%{opacity:.8}
+  48%{height:var(--h);opacity:.8}
+  72%{height:var(--h);opacity:.45}
+  93%{height:var(--h);opacity:0}
+  100%{height:0;opacity:0}
+}
+
+/* HERO ART — floating graffiti bubble shapes */
+.hero-art{position:absolute;inset:0;width:100%;height:100%;z-index:6;pointer-events:none}
+@keyframes floatA{
+  0%,100%{transform:translate(0,0) rotate(-3deg)}
+  40%{transform:translate(14px,-18px) rotate(2deg)}
+  70%{transform:translate(-9px,-10px) rotate(-5deg)}
+}
+@keyframes floatB{
+  0%,100%{transform:translate(0,0) rotate(2deg)}
+  30%{transform:translate(-12px,-14px) rotate(-3deg)}
+  65%{transform:translate(8px,-20px) rotate(4deg)}
+}
+@keyframes floatC{
+  0%,100%{transform:translate(0,0) scale(1) rotate(0deg)}
+  50%{transform:translate(-6px,-12px) scale(1.07) rotate(5deg)}
+}
+@keyframes floatD{
+  0%,100%{transform:translate(0,0) rotate(-1deg)}
+  35%{transform:translate(10px,-16px) rotate(3deg)}
+  75%{transform:translate(-4px,-8px) rotate(-4deg)}
+}
+
+/* 4th orb — purple */
+.o4{
+  width:55vw;height:50vw;
+  background:radial-gradient(circle,rgba(168,85,247,.11),transparent 65%);
+  bottom:5%;left:20%;
+  animation:orbD 22s ease-in-out infinite,hueO2 11s 3s linear infinite;
+}
+@keyframes orbD{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,-7vh) scale(1.09)}}
 
 /* NOISE */
 .noise{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:.04;
@@ -476,6 +527,70 @@ html.gated{overflow:hidden}
   <div class="orb o1" aria-hidden="true"></div>
   <div class="orb o2" aria-hidden="true"></div>
   <div class="orb o3" aria-hidden="true"></div>
+  <div class="orb o4" aria-hidden="true"></div>
+
+  <!-- floating graffiti bubble shapes — ceiling mural energy -->
+  <svg class="hero-art" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- green bubble, left -->
+    <g style="animation:floatA 8s ease-in-out infinite;transform-origin:150px 230px">
+      <ellipse cx="150" cy="230" rx="105" ry="90" fill="rgba(57,255,20,0.06)" stroke="#39ff14" stroke-width="3" stroke-opacity="0.22"/>
+      <line x1="118" y1="320" x2="115" y2="368" stroke="#39ff14" stroke-width="4.5" stroke-opacity="0.18"/>
+      <ellipse cx="114" cy="376" rx="7" ry="9" fill="#39ff14" fill-opacity="0.14"/>
+      <line x1="150" y1="320" x2="152" y2="352" stroke="#39ff14" stroke-width="3" stroke-opacity="0.14"/>
+      <ellipse cx="152" cy="358" rx="5" ry="6" fill="#39ff14" fill-opacity="0.11"/>
+      <line x1="178" y1="318" x2="180" y2="340" stroke="#39ff14" stroke-width="3.5" stroke-opacity="0.12"/>
+      <ellipse cx="181" cy="345" rx="4.5" ry="5.5" fill="#39ff14" fill-opacity="0.1"/>
+    </g>
+    <!-- pink bubble, right -->
+    <g style="animation:floatB 11s 1s ease-in-out infinite;transform-origin:1290px 360px">
+      <ellipse cx="1290" cy="360" rx="92" ry="80" fill="rgba(255,46,126,0.06)" stroke="#ff2e7e" stroke-width="3" stroke-opacity="0.2"/>
+      <line x1="1258" y1="440" x2="1255" y2="485" stroke="#ff2e7e" stroke-width="4" stroke-opacity="0.16"/>
+      <ellipse cx="1254" cy="492" rx="7" ry="8" fill="#ff2e7e" fill-opacity="0.13"/>
+      <line x1="1295" y1="440" x2="1298" y2="468" stroke="#ff2e7e" stroke-width="3" stroke-opacity="0.13"/>
+      <ellipse cx="1299" cy="474" rx="5" ry="6" fill="#ff2e7e" fill-opacity="0.1"/>
+    </g>
+    <!-- purple bubble, bottom center -->
+    <g style="animation:floatC 6.5s 2s ease-in-out infinite;transform-origin:720px 660px">
+      <ellipse cx="720" cy="660" rx="72" ry="64" fill="rgba(168,85,247,0.05)" stroke="#a855f7" stroke-width="2.5" stroke-opacity="0.16"/>
+      <line x1="698" y1="724" x2="695" y2="758" stroke="#a855f7" stroke-width="3.5" stroke-opacity="0.14"/>
+      <ellipse cx="694" cy="764" rx="6" ry="7" fill="#a855f7" fill-opacity="0.12"/>
+      <line x1="730" y1="724" x2="732" y2="748" stroke="#a855f7" stroke-width="2.5" stroke-opacity="0.11"/>
+      <ellipse cx="733" cy="753" rx="4" ry="5" fill="#a855f7" fill-opacity="0.09"/>
+    </g>
+    <!-- cyan bubble, upper right area -->
+    <g style="animation:floatD 9.5s 0.5s ease-in-out infinite;transform-origin:1050px 200px">
+      <ellipse cx="1050" cy="200" rx="62" ry="55" fill="rgba(0,229,255,0.05)" stroke="#00e5ff" stroke-width="2.5" stroke-opacity="0.15"/>
+      <line x1="1028" y1="255" x2="1026" y2="285" stroke="#00e5ff" stroke-width="3.5" stroke-opacity="0.13"/>
+      <ellipse cx="1025" cy="291" rx="5.5" ry="6.5" fill="#00e5ff" fill-opacity="0.1"/>
+      <line x1="1060" y1="255" x2="1062" y2="273" stroke="#00e5ff" stroke-width="2.5" stroke-opacity="0.1"/>
+      <ellipse cx="1063" cy="277" rx="3.5" ry="4.5" fill="#00e5ff" fill-opacity="0.09"/>
+    </g>
+    <!-- scattered paint splatters -->
+    <circle cx="380" cy="120" r="9" fill="#f5ff00" fill-opacity="0.09"/>
+    <circle cx="370" cy="140" r="4" fill="#f5ff00" fill-opacity="0.07"/>
+    <circle cx="1120" cy="180" r="6" fill="#00e5ff" fill-opacity="0.08"/>
+    <circle cx="920" cy="820" r="11" fill="#ff2e7e" fill-opacity="0.07"/>
+    <circle cx="210" cy="750" r="7" fill="#39ff14" fill-opacity="0.08"/>
+    <circle cx="600" cy="80" r="5" fill="#a855f7" fill-opacity="0.1"/>
+    <circle cx="820" cy="760" r="8" fill="#f5ff00" fill-opacity="0.07"/>
+    <!-- rough X splat marks -->
+    <line x1="440" y1="108" x2="456" y2="124" stroke="#f5ff00" stroke-width="2" stroke-opacity="0.08"/>
+    <line x1="456" y1="108" x2="440" y2="124" stroke="#f5ff00" stroke-width="2" stroke-opacity="0.08"/>
+    <line x1="1140" y1="170" x2="1152" y2="182" stroke="#00e5ff" stroke-width="1.5" stroke-opacity="0.07"/>
+    <line x1="1152" y1="170" x2="1140" y2="182" stroke="#00e5ff" stroke-width="1.5" stroke-opacity="0.07"/>
+  </svg>
+
+  <!-- paint drips from top -->
+  <div class="drips" aria-hidden="true">
+    <div class="drip" style="--x:6%;  --c:#ff2e7e;--w:10px;--h:130px;--d:0.3s;--dur:5.2s"></div>
+    <div class="drip" style="--x:14%; --c:#39ff14;--w:7px; --h:88px; --d:2.2s;--dur:4.4s"></div>
+    <div class="drip" style="--x:27%; --c:#f5ff00;--w:9px; --h:145px;--d:0.9s;--dur:6.1s"></div>
+    <div class="drip" style="--x:41%; --c:#a855f7;--w:8px; --h:72px; --d:3.3s;--dur:4.7s"></div>
+    <div class="drip" style="--x:57%; --c:#00e5ff;--w:11px;--h:115px;--d:1.6s;--dur:5.8s"></div>
+    <div class="drip" style="--x:68%; --c:#ff2e7e;--w:7px; --h:98px; --d:0.6s;--dur:4.3s"></div>
+    <div class="drip" style="--x:79%; --c:#39ff14;--w:9px; --h:78px; --d:2.8s;--dur:5.0s"></div>
+    <div class="drip" style="--x:90%; --c:#f5ff00;--w:8px; --h:135px;--d:1.3s;--dur:5.6s"></div>
+  </div>
 
   <span class="hero-badge">Website concept &middot; Ashburn, VA</span>
 
