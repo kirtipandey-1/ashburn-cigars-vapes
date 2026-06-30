@@ -8,8 +8,6 @@
     return val.replace(/([0-9.]+)px/g, function(m, n) {
       i++;
       var num = parseFloat(n);
-      // keep first 2 px-numbers (innermost glow = solid fill) full strength,
-      // shrink everything after (outer halo = cross-letter bleed)
       var factor = i < 2 ? 1 : 0.45;
       return (num * factor) + 'px';
     });
@@ -23,6 +21,16 @@
       }
       var fixed = reduceShadow(el.dataset.origShadow);
       if (el.style.textShadow !== fixed) el.style.setProperty('text-shadow', fixed, 'important');
+      // shrink the white outline stroke so fill color dominates at small mobile font sizes
+      var stroke = getComputedStyle(el).webkitTextStrokeWidth;
+      if (stroke && stroke !== '0px' && !el.dataset.origStroke) {
+        el.dataset.origStroke = el.style.webkitTextStrokeWidth || stroke;
+      }
+      if (el.dataset.origStroke) {
+        var orig = parseFloat(el.dataset.origStroke);
+        var shrunk = Math.max(orig * 0.3, 0.4) + 'px';
+        if (el.style.webkitTextStrokeWidth !== shrunk) el.style.setProperty('-webkit-text-stroke-width', shrunk, 'important');
+      }
     });
   }
   setInterval(applyFix, 250);
