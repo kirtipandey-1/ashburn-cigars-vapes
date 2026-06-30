@@ -4,8 +4,14 @@
 (function() {
   if (!window.matchMedia('(max-width: 768px)').matches) return;
   function reduceShadow(val) {
+    var i = -1;
     return val.replace(/([0-9.]+)px/g, function(m, n) {
-      return (parseFloat(n) * 0.4) + 'px';
+      i++;
+      var num = parseFloat(n);
+      // keep first 2 px-numbers (innermost glow = solid fill) full strength,
+      // shrink everything after (outer halo = cross-letter bleed)
+      var factor = i < 2 ? 1 : 0.45;
+      return (num * factor) + 'px';
     });
   }
   function applyFix() {
