@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><script>
+(function() {
+  if (window.innerWidth > 768) return;
+  function reduceShadow(val) {
+    // Scale down all px blur values by 60%
+    return val.replace(/([0-9.]+)px/g, function(m, n) {
+      return (parseFloat(n) * 0.4) + 'px';
+    });
+  }
+  var orig = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, 'textShadow');
+  Object.defineProperty(CSSStyleDeclaration.prototype, 'textShadow', {
+    set: function(val) { orig.set.call(this, reduceShadow(val)); },
+    get: orig.get,
+    configurable: true
+  });
+})();
+</script>
 <script>window.__CAT__="GLASS";</script>
   <meta charset="utf-8">
   <title>Bundled Page</title>
