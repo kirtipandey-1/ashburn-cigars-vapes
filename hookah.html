@@ -2,18 +2,26 @@
 <html>
 <head><script>
 (function() {
-  if (window.innerWidth > 768) return;
+  if (!window.matchMedia('(max-width: 768px)').matches) return;
   function reduceShadow(val) {
-    // Scale down all px blur values by 60%
     return val.replace(/([0-9.]+)px/g, function(m, n) {
-      return (parseFloat(n) * 0.4) + 'px';
+      return (parseFloat(n) * 0.35) + 'px';
     });
   }
-  var orig = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, 'textShadow');
-  Object.defineProperty(CSSStyleDeclaration.prototype, 'textShadow', {
-    set: function(val) { orig.set.call(this, reduceShadow(val)); },
-    get: orig.get,
-    configurable: true
+  function applyFix() {
+    document.querySelectorAll('*').forEach(function(el) {
+      var ts = el.style.textShadow;
+      if (ts && ts.indexOf('px') > -1 && !el._gfixed) {
+        el._gfixed = true;
+        el.style.setProperty('text-shadow', reduceShadow(ts), 'important');
+      }
+    });
+  }
+  // Run after render, then watch for new elements
+  window.addEventListener('load', function() {
+    applyFix();
+    var mo = new MutationObserver(applyFix);
+    mo.observe(document.body, { childList: true, subtree: true, attributeFilter: ['style'] });
   });
 })();
 </script>
