@@ -2,7 +2,6 @@
 <html>
 <head><script>
 (function() {
-  if (!window.matchMedia('(max-width: 768px)').matches) return;
   function reduceShadow(val) {
     var i = -1;
     return val.replace(/([0-9.]+)px/g, function(m, n) {
@@ -13,6 +12,7 @@
     });
   }
   function applyFix() {
+    if (window.innerWidth > 768) return;
     document.querySelectorAll('[style*="text-shadow"]').forEach(function(el) {
       if (!el.dataset.origShadow) {
         var ts = el.style.textShadow;
@@ -21,7 +21,6 @@
       }
       var fixed = reduceShadow(el.dataset.origShadow);
       if (el.style.textShadow !== fixed) el.style.setProperty('text-shadow', fixed, 'important');
-      // shrink the white outline stroke so fill color dominates at small mobile font sizes
       var stroke = getComputedStyle(el).webkitTextStrokeWidth;
       if (stroke && stroke !== '0px' && !el.dataset.origStroke) {
         el.dataset.origStroke = el.style.webkitTextStrokeWidth || stroke;
