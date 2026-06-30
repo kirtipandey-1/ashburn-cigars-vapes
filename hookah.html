@@ -7,7 +7,7 @@
     return val.replace(/([0-9.]+)px/g, function(m, n) {
       i++;
       var num = parseFloat(n);
-      var factor = i < 2 ? 1 : 0.45;
+      var factor = i < 2 ? 1 : 0.25;
       return (num * factor) + 'px';
     });
   }
