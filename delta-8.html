@@ -5,24 +5,21 @@
   if (!window.matchMedia('(max-width: 768px)').matches) return;
   function reduceShadow(val) {
     return val.replace(/([0-9.]+)px/g, function(m, n) {
-      return (parseFloat(n) * 0.35) + 'px';
+      return (parseFloat(n) * 0.4) + 'px';
     });
   }
   function applyFix() {
-    document.querySelectorAll('*').forEach(function(el) {
-      var ts = el.style.textShadow;
-      if (ts && ts.indexOf('px') > -1 && !el._gfixed) {
-        el._gfixed = true;
-        el.style.setProperty('text-shadow', reduceShadow(ts), 'important');
+    document.querySelectorAll('[style*="text-shadow"]').forEach(function(el) {
+      if (!el.dataset.origShadow) {
+        var ts = el.style.textShadow;
+        if (!ts) return;
+        el.dataset.origShadow = ts;
       }
+      var fixed = reduceShadow(el.dataset.origShadow);
+      if (el.style.textShadow !== fixed) el.style.setProperty('text-shadow', fixed, 'important');
     });
   }
-  // Run after render, then watch for new elements
-  window.addEventListener('load', function() {
-    applyFix();
-    var mo = new MutationObserver(applyFix);
-    mo.observe(document.body, { childList: true, subtree: true, attributeFilter: ['style'] });
-  });
+  setInterval(applyFix, 250);
 })();
 </script>
 <script>window.__CAT__="DELTA-8";</script>
